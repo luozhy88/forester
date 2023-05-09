@@ -11,7 +11,8 @@ lisbon <- select(lisbon,
                  -c('Country', 'District', 'Municipality',
                     'AreaNet', 'PropertyType', 'Id'))
 
-
+### classfy
+https://github.com/luozhy88/forester/blob/main/classfication_example
 
 ## Note
 
