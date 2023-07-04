@@ -7,8 +7,7 @@ library(forester)
 data(lisbon)  
 check <- check_data(lisbon, 'Price')  
 
-lisbon <- select(lisbon,  
-                 -c('Country', 'District', 'Municipality',  
+lisbon <- select(lisbon,   -c('Country', 'District', 'Municipality',  
                     'AreaNet', 'PropertyType', 'Id'))  
 
 ### classfy
