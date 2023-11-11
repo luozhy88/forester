@@ -27,7 +27,7 @@ draw_feature_importance2=function (best_models, test_data, y) {
 
 draw_feature_importance3=function (best_models, test_data, y) {
   explainer <- explain(best_models[[1]], test_data, y)
-  feature_important = DALEX::model_parts(explainer = explainer)
+  feature_important = DALEX::model_parts(explainer = explainer,type = "variable_importance")
   feature_important =feature_important %>% dplyr::filter(variable!=y) %>% data.frame()
   results <- feature_important %>% group_by(variable,label) %>% summarise(mean_dropout_loss = mean(dropout_loss)) %>% data.frame() %>% dplyr::filter(variable!="_full_model_"& variable!="_baseline_")
   
