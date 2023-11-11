@@ -21,3 +21,21 @@ draw_feature_importance2=function (best_models, test_data, y) {
   # plt$layers[[3]]$aes_params$colour <- forester_palette()[[1]]
   return(plt)
 }
+
+
+
+
+draw_feature_importance3=function (best_models, test_data, y) {
+  explainer <- explain(best_models[[1]], test_data, y)
+  feature_important = DALEX::model_parts(explainer = explainer)
+  feature_important =feature_important %>% dplyr::filter(variable!=y) %>% data.frame()
+  results <- feature_important %>% group_by(variable,label) %>% summarise(mean_dropout_loss = mean(dropout_loss)) %>% data.frame() %>% dplyr::filter(variable!="_full_model_"& variable!="_baseline_")
+  
+  plt <-ggbarplot(results, "variable", "mean_dropout_loss", fill = "green", 
+            orientation = "horiz",sort.val = "asc",
+            xlab = "",ylab = "One minus AUC loss after permutations",
+            title = results$label %>% unique() %>% Hmisc::capitalize()
+            )
+  show(plt)
+  return(results)
+}
